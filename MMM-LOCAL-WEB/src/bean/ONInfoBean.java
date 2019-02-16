@@ -52,8 +52,8 @@ public class ONInfoBean extends RmiBean
 				msgBean = pRmi.RmiExec(0, this, 0, 25);
 			case 0: // 查询全部
 				currStatus.setTotalRecord(msgBean.getCount());
-				request.getSession().setAttribute("Factory_Info_" + Sid, (Object) msgBean.getMsg());
-				currStatus.setJsp("Factory_Info.jsp?Sid=" + Sid);
+				request.getSession().setAttribute("ON_Info_" + Sid, (Object) msgBean.getMsg());
+				currStatus.setJsp("ON_Info.jsp?Sid=" + Sid);
 				break;
 		}
 		request.getSession().setAttribute("CurrStatus_" + Sid, currStatus);
@@ -73,6 +73,17 @@ public class ONInfoBean extends RmiBean
 			Sql = " select t.sn, t.id, t.cname, t.status " +
 				  " from on_info t " +
 				  " order by t.sn";
+			break;
+		case 10: // 插入
+			Sql = " insert into on_info(id, cname, status) " +
+				  " values('"+id+"', '"+cname+"', '"+status+"')";
+			break;
+		case 11: // 编辑
+			Sql = " update on_info set id = '"+id+"', cname = '"+cname+"', status = '"+status+"'"+
+				  " where sn = '"+sn+"'";
+			break;
+		case 12: // 删除
+			Sql = " delete from on_info where sn = '"+sn+"'";
 			break;
 		}
 		return Sql;

@@ -52,8 +52,8 @@ public class TextureInfoBean extends RmiBean
 				msgBean = pRmi.RmiExec(0, this, 0, 25);
 			case 0: // 查询全部
 				currStatus.setTotalRecord(msgBean.getCount());
-				request.getSession().setAttribute("Factory_Info_" + Sid, (Object) msgBean.getMsg());
-				currStatus.setJsp("Factory_Info.jsp?Sid=" + Sid);
+				request.getSession().setAttribute("Texture_Info_" + Sid, (Object) msgBean.getMsg());
+				currStatus.setJsp("Texture_Info.jsp?Sid=" + Sid);
 				break;
 		}
 		request.getSession().setAttribute("CurrStatus_" + Sid, currStatus);
@@ -74,6 +74,18 @@ public class TextureInfoBean extends RmiBean
 				  " from texture_info t " +
 				  " where t.project_id ='" + currStatus.getFunc_Project_Id() + "'" +
 				  " order by t.sn";
+			break;
+		case 10: // 插入
+			Sql = " insert into texture_info(project_id, cname, status, demo) " +
+				  " values('"+project+"', '"+cname+"', '"+status+"', '"+demo+"')";
+			break;
+		case 11: // 编辑
+			Sql = " update texture_info set project_id = '"+project+"', cname = '"+cname+"', status = '"+status+"', demo = '"+demo+"') " +
+				  " where sn = '"+sn+"'";
+			break;
+		case 12: // 删除
+			Sql = " delete from texture_info" + 
+				  " where sn = '"+sn+"'";
 			break;
 		}
 		return Sql;

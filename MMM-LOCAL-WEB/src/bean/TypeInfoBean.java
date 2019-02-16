@@ -52,8 +52,8 @@ public class TypeInfoBean extends RmiBean
 				msgBean = pRmi.RmiExec(0, this, 0, 25);
 			case 0: // 查询全部
 				currStatus.setTotalRecord(msgBean.getCount());
-				request.getSession().setAttribute("Factory_Info_" + Sid, (Object) msgBean.getMsg());
-				currStatus.setJsp("Factory_Info.jsp?Sid=" + Sid);
+				request.getSession().setAttribute("Type_Info_" + Sid, (Object) msgBean.getMsg());
+				currStatus.setJsp("Type_Info.jsp?Sid=" + Sid);
 				break;
 		}
 		request.getSession().setAttribute("CurrStatus_" + Sid, currStatus);
@@ -70,10 +70,22 @@ public class TypeInfoBean extends RmiBean
 		switch (pCmd)
 		{
 		case 0:	// 查询项目下全部
-			Sql = " select t.sn, t.project_id, t.cname, t.demo " +
+			Sql = " select t.sn, t.project_id, t.cname, t.status, t.demo " +
 				  " from type_info t " +
 				  " where t.project_id ='" + currStatus.getFunc_Project_Id() + "'" +
 				  " order by t.sn";
+			break;
+		case 10: // 插入
+			Sql = " insert into type_info(project_id, cname, status, demo) " +
+				  " values('"+project+"', '"+cname+"', '"+status+"', '"+demo+"')";
+			break;
+		case 11: // 编辑
+			Sql = " update type_info set project_id = '"+project+"', cname = '"+cname+"', status = '"+status+"', demo = '"+demo+"'" +
+				  " where sn = '"+sn+"'";
+			break;
+		case 12: // 删除
+			Sql = " delete from  type_info " +
+				  " where sn = '"+sn+"'";
 			break;
 		}
 		return Sql;

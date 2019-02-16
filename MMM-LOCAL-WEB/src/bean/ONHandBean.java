@@ -52,8 +52,8 @@ public class ONHandBean extends RmiBean
 				msgBean = pRmi.RmiExec(0, this, 0, 25);
 			case 0: // 查询全部
 				currStatus.setTotalRecord(msgBean.getCount());
-				request.getSession().setAttribute("Factory_Info_" + Sid, (Object) msgBean.getMsg());
-				currStatus.setJsp("Factory_Info.jsp?Sid=" + Sid);
+				request.getSession().setAttribute("ON_Hand_" + Sid, (Object) msgBean.getMsg());
+				currStatus.setJsp("ON_Hand.jsp?Sid=" + Sid);
 				break;
 		}
 		request.getSession().setAttribute("CurrStatus_" + Sid, currStatus);
@@ -70,10 +70,21 @@ public class ONHandBean extends RmiBean
 		switch (pCmd)
 		{
 		case 0:	// 查询项目下全部
-			Sql = " select t.sn, t.project_id, t.cname, t.demo " +
-				  " from type_info t " +
+			Sql = " select t.sn, t.project_id, t.factory, t.type, t.texture, t.spec, t.ply, t.length, t.payPie, t.payWeight, t.pieWeight, t.weight, t.pay, t.pie, t.material, t.depot, t.payPrice, t.piePrice, t.trafficProce, t.price " +
+				  " from on_hand t " +
 				  " where t.project_id ='" + currStatus.getFunc_Project_Id() + "'" +
 				  " order by t.sn";
+			break;
+		case 10: // 插入
+			Sql = " insert into on_hand(project_id, factory, type, texture, spec, ply, length, payPie, payWeight, pieWeight, weight, pay, pie, material, depot, payPrice, piePrice, trafficProce, price) " +
+				  " values('"+project+"', '"+factory+"', '"+type+"', '"+texture+"', '"+spec+"', '"+ply+"', '"+length+"', '"+payPie+"', '"+payWeight+"', '"+pieWeight+"', '"+weight+"', '"+pay+"', '"+pie+"', '"+material+"', '"+depot+"', '"+payPrice+"', '"+piePrice+"', '"+trafficProce+"', '"+price+"')";
+			break;
+		case 11: // 修改
+			Sql = " update on_hand set project_id = '"+project+"', factory = '"+factory+"', type = '"+type+"', texture = '"+texture+"', spec = '"+spec+"', ply = '"+ply+"', length = '"+length+"', payPie = '"+payPie+"', payWeight = '"+payWeight+"', pieWeight = '"+pieWeight+"', weight = '"+weight+"', pay = '"+pay+"', pie = '"+pie+"', material = '"+material+"', depot = '"+depot+"', payPrice = '"+payPrice+"', piePrice = '"+piePrice+"', trafficProce = '"+trafficProce+"', price = '"+price+"'"+
+				  " where sn = '"+sn+"'";
+			break;
+		case 12: // 删除
+			Sql = " delete from on_hand where sn = '" + sn + "'";
 			break;
 		}
 		return Sql;

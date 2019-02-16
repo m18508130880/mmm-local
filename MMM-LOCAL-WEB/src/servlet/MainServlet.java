@@ -196,14 +196,14 @@ public class MainServlet extends HttpServlet
         /***********************************USER******************************************/  
         else if (strUrl.equalsIgnoreCase("Factory_Info.do"))						//厂家信息
         	new FactoryInfoBean().ExecCmd(request, response, m_Rmi, false);
-        else if (strUrl.equalsIgnoreCase("Type_Info.do"))							//类型信息
-        	new TypeInfoBean().ExecCmd(request, response, m_Rmi, false);
-        else if (strUrl.equalsIgnoreCase("Texture_Info.do"))						//材质信息
-        	new TextureInfoBean().ExecCmd(request, response, m_Rmi, false);
-        else if (strUrl.equalsIgnoreCase("ON_Info.do"))								//列--信息
-        	new ONInfoBean().ExecCmd(request, response, m_Rmi, false);
         else if (strUrl.equalsIgnoreCase("ON_Hand.do"))								//物品信息
         	new ONHandBean().ExecCmd(request, response, m_Rmi, false);
+        else if (strUrl.equalsIgnoreCase("ON_Info.do"))								//列--信息
+        	new ONInfoBean().ExecCmd(request, response, m_Rmi, false);
+        else if (strUrl.equalsIgnoreCase("Texture_Info.do"))						//材质信息
+        	new TextureInfoBean().ExecCmd(request, response, m_Rmi, false);
+        else if (strUrl.equalsIgnoreCase("Type_Info.do"))							//类型信息
+        	new TypeInfoBean().ExecCmd(request, response, m_Rmi, false);
         
     }
     

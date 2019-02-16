@@ -70,10 +70,21 @@ public class FactoryInfoBean extends RmiBean
 		switch (pCmd)
 		{
 		case 0:	// 查询项目下全部
-			Sql = " select t.id, t.project_id, t.cname, t.addr, t.contact, t.tel, t.status, t.demo " +
+			Sql = " select t.sn, t.project_id, t.cname, t.addr, t.contact, t.tel, t.status, t.demo " +
 				  " from factory_info t " +
 				  " where t.project_id ='" + currStatus.getFunc_Project_Id() + "'" +
-				  " order by t.id";
+				  " order by t.sn";
+			break;
+		case 10:
+			Sql = " insert into factory_info(project_id, cname, addr, contact, tel, status, demo) " +
+				  " values('" + project + "','" + cname + "','" + addr + "','" + contact + "','" + tel + "','" + status + "','" + demo + "')";
+			break;
+		case 11:
+			Sql = " update factory_info set project_id = '" + project + "', cname = '" + cname + "', addr = '" + addr + "', contact = '" + contact + "', tel = '" + tel + "', status = '" + status + "', demo = '" + demo + "'"+
+				  " where sn = '"+sn+"'";
+			break;
+		case 12:
+			Sql = " delete from factory_info where sn = '" + sn + "'";
 			break;
 		}
 		return Sql;
